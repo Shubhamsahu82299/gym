@@ -45,7 +45,7 @@ router.post("/send/mail", async (req, res) => {
       message: "Message Sent Successfully.",
     });
   } catch (error) {
-    // 👇 YAHAN HUMNE ERROR PRINT KARNE KA CODE ADD KIYA HAI 👇
+    
     console.error("❌ MAIL SENDING FAILED:", error);
 
     res.status(500).json({
@@ -57,7 +57,12 @@ router.post("/send/mail", async (req, res) => {
 
 app.use(router);
 
-const PORT = process.env.PORT || 4000; // Fallback added just in case PORT is undefined
-app.listen(PORT, () => {
-  console.log(`✅ Server listening at port ${PORT}`);
-});
+
+if (process.env.NODE_ENV !== 'production') {
+  const PORT = process.env.PORT || 4000;
+  app.listen(PORT, () => {
+    console.log(`✅ Server listening at port ${PORT}`);
+  });
+}
+
+export default app;
